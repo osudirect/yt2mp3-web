@@ -37,7 +37,7 @@ function App() {
             const url = new URL(value);
             const code = url.searchParams.get("v");
             xhr.open("GET", `${env.apiEndpoint}/${code}`, true);
-            xhr.responseType = 'blob';
+            xhr.responseType = 'arraybuffer';
             let totalSize;
             let titleLet;
             xhr.onprogress = (e) => {
@@ -52,7 +52,9 @@ function App() {
             }
             xhr.onloadend = () => {
                 if (xhr.status == 200) {
-                    const aUrl = URL.createObjectURL(xhr.response);;
+                    const aUrl = URL.createObjectURL(new Blob([xhr.response], {
+                        type: "audio/mpeg"
+                    }));
                     a.current.href = aUrl;
                     a.current.download = titleLet + ".mp3";
                     a.current.click();
