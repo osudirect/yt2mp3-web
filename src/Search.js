@@ -29,10 +29,11 @@ function Search() {
     }
 
     function secondsToTime(secs) {
-        let hours = Math.floor(secs / 3600);
-        let minutes = Math.floor(secs / 60) % 60;
-        let seconds = Math.floor(secs % 60);
-        return `${hours > 0 ? hours + ':' : ''}${minutes > 0 ? minutes + ':' : '0:'}${seconds}`;
+        let hours = String(Math.floor(secs / 3600));
+        let minutes = String(Math.floor(secs / 60) % 60);
+        let seconds = String(Math.floor(secs % 60));
+        if(hours > 0) return `${hours}:${minutes.padStart(2, 0)}:${seconds.padStart(2, 0)}`
+        return `${minutes}:${seconds.padStart(2, 0)}`
     }
 
     return <>
