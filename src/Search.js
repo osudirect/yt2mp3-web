@@ -16,12 +16,12 @@ function Search() {
         StorageSearch();
     }, [])
 
-    async function StorageSearch(value) {
+    async function StorageSearch(value, newSearch = true) {
         if (value) setSearchValue(value);
         try {
-            const res = await fetch(`${env.apiEndpoint}/search?q=${value || searchValue}&limit=${len}&offset=${storageRes.length}`);
+            const res = await fetch(`${env.apiEndpoint}/search?q=${value || searchValue}&limit=${len}&offset=${newSearch ? 0 : storageRes.length}`);
             const data = await res.json();
-            setStorageRes([...storageRes, ...data.reverse()]);
+            setStorageRes([...storageRes, ...data]);
         } catch (err) {
             console.error(err);
             setStorageRes([]);
@@ -81,7 +81,7 @@ function Search() {
         </div>
         <button className="btn btn-primary"
             disabled={storageRes.length % len != 0}
-            onClick={StorageSearch}>
+            onClick={() => StorageSearch(undefined, false)}>
             Load More
         </button>
     </>;
