@@ -82,9 +82,9 @@ function Home() {
 
     async function GetRecent(e) {
         e?.preventDefault();
-        const res = await fetch(`${env.apiEndpoint}/search`);
+        const res = await fetch(`${env.apiEndpoint}/search?limit=5`);
         const data = await res.json();
-        setRecent(data.reverse());
+        setRecent(data);
     }
 
     function AbortDownload() {
