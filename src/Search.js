@@ -19,7 +19,7 @@ function Search() {
     async function StorageSearch(value, newSearch = true) {
         if (value !== undefined) setSearchValue(value);
         try {
-            const res = await fetch(`${env.apiEndpoint}/search?q=${value || searchValue}&limit=${len}&offset=${newSearch ? 0 : storageRes.length}`);
+            const res = await fetch(`${env.apiEndpoint}/search?q=${value !== undefined ? value : searchValue}&limit=${len}&offset=${newSearch ? 0 : storageRes.length}`);
             const data = await res.json();
             setStorageRes(newSearch ? data : [...storageRes, ...data]);
         } catch (err) {
