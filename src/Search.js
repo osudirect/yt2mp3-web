@@ -21,7 +21,7 @@ function Search() {
         try {
             const res = await fetch(`${env.apiEndpoint}/search?q=${value || searchValue}&limit=${len}&offset=${newSearch ? 0 : storageRes.length}`);
             const data = await res.json();
-            setStorageRes(newValue ? data : [...storageRes, ...data]);
+            setStorageRes(newSearch ? data : [...storageRes, ...data]);
         } catch (err) {
             console.error(err);
             setStorageRes([]);
